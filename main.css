@@ -1,12 +1,86 @@
 .hero{
     height: 200;
-    width: 100;
+    width: 200;
     background: purple;
+    position: absolute;
     transition: height 2s, width 2s;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
 }
 
-.buka-world{
+.heroEyeLine {
+    padding: 20px;
+    width: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    transition: padding 2s ease-in-out;
+  }
+
+  .heroEye {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .buka-world {
+    position: relative;
     height: 600px;
     display: flex;
     align-items: flex-end;
-}
+    background: linear-gradient(38deg, #9439d2, #30d261);
+    background-size: 400% 400%;
+
+    animation: AnimationName 5s ease infinite;
+  }
+
+  .foodItem {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background: yellow;
+    border-radius: 50%;
+  }
+
+  @-webkit-keyframes AnimationName {
+    0% {
+      background-position: 75% 0%
+    }
+
+    50% {
+      background-position: 26% 100%
+    }
+
+    100% {
+      background-position: 75% 0%
+    }
+  }
+
+  @-moz-keyframes AnimationName {
+    0% {
+      background-position: 75% 0%
+    }
+
+    50% {
+      background-position: 26% 100%
+    }
+
+    100% {
+      background-position: 75% 0%
+    }
+  }
+
+  @keyframes AnimationName {
+    0% {
+      background-position: 75% 0%
+    }
+
+    50% {
+      background-position: 26% 100%
+    }
+
+    100% {
+      background-position: 75% 0%
+    }
+  }

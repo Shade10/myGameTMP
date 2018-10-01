@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
     <div class="buka-world" id="app"></div>
 
-    
+
     <script src="Buka.js"></script>
     <script>
         var world = document.querySelector('#app');
@@ -18,28 +20,51 @@
         var hero = new Buka(world, {
             direction: 'NONE',
             width: 200,
-            heigt: 200,
+            height: 200,
             position: {
                 x: 0,
                 y: 0
             }
         })
 
-        var direction =['RIGHT', 'NONE', 'DOWN', 'LEFT', 'UP'];
+        var foodManager = {
+            moveFoodItems: function () {
+                document.querySelectorAll('.foodItem').forEach(function (foodItem) {
+                    var foodItemPositionY = parseFloat(window.getComputedStyle(foodItem).bottom)
+                    
+                    var newFoodItemPositionY = Math.max(foodItemPositionY - 1, 0);
+                    foodItem.style.bottom = newFoodItemPositionY + 'px';
+                })
+            },
+            createFoodItem: function () {
+                var foodNode = document.createElement('div');
+                foodNode.classList.add('foodItem');
+                foodNode.style.bottom = '600px';
+                foodNode.style.left = (Math.random() * 400) + 'px';
+                world.appendChild(foodNode);
+            }
+        }
+
+        setInterval(function () {
+            foodManager.createFoodItem();
+        }, 500)
+
+        var direction = ['RIGHT', 'NONE', 'DOWN', 'LEFT', 'UP'];
         var currentDirectionIndex = 0;
 
         updategameScreen();
-        
-        function updategameScreen(){
+
+        function updategameScreen() {
             [hero].map(hero => {
                 hero.updatePosition();
                 hero.render();
             })
+            foodManager.moveFoodItems();
 
             requestAnimationFrame(updategameScreen);
         }
 
-        setInterval(function(){
+        setInterval(function () {
             var newDirection = direction[currentDirectionIndex];
             hero.move(newDirection);
 
@@ -47,4 +72,5 @@
         }, 2000)
     </script>
 </body>
+
 </html>
