@@ -10,15 +10,15 @@
 </head>
 
 <body>
-    <div class="buka-world" id="app"></div>
+    <div id="app" class="buka-world" ></div>
 
 
-    <script src="Buka.js"></script>
+    <script src="./Buka.js"></script>
     <script>
         var world = document.querySelector('#app');
 
         var hero = new Buka(world, {
-            direction: 'NONE',
+            direction: 'none',
             width: 200,
             height: 200,
             position: {
@@ -27,49 +27,50 @@
             }
         })
 
-        var foodManager = {
-            moveFoodItems: function () {
-                document.querySelectorAll('.foodItem').forEach(function (foodItem) {
-                    var foodItemPositionY = parseFloat(window.getComputedStyle(foodItem).bottom)
-                    
-                    var newFoodItemPositionY = Math.max(foodItemPositionY - 1, 0);
-                    foodItem.style.bottom = newFoodItemPositionY + 'px';
-                })
-            },
-            createFoodItem: function () {
-                var foodNode = document.createElement('div');
-                foodNode.classList.add('foodItem');
-                foodNode.style.bottom = '600px';
-                foodNode.style.left = (Math.random() * 400) + 'px';
-                world.appendChild(foodNode);
-            }
-        }
-
-        setInterval(function () {
-            foodManager.createFoodItem();
-        }, 500)
-
-        var direction = ['RIGHT', 'NONE', 'DOWN', 'LEFT', 'UP'];
+        var directions = ['right', 'none', 'down', 'left', 'up'];
         var currentDirectionIndex = 0;
 
-        updategameScreen();
+        var foodManager = {
+            moveFoodItem: function(){
+                document.querySelectorAll('.foodItem').forEach(foodItem =>{
+                    var foodItemPositionY = parseFloat(getComputedStyle(foodItem).bottom);
 
-        function updategameScreen() {
-            [hero].map(hero => {
+                    var newFoodItemPositionY = Math.max(foodItemPositionY - 1, 0);
+                    foodItem.style.bottom = newFoodItemPositionY + "px";
+                })
+            },
+
+            createFoodItem: function(){
+                var newFoodItem = document.createElement('div');
+                newFoodItem.classList.add('foodItem');
+                newFoodItem.style.bottom = '500px';
+                newFoodItem.style.left = (Math.random() * 600 ) + 'px';
+                world.appendChild(newFoodItem);
+            }
+        }
+        
+        setInterval(function(){
+            foodManager.createFoodItem();
+        },500)
+
+        setInterval(function () {
+            var newDirection = directions[currentDirectionIndex];
+            hero.move(newDirection);
+
+            currentDirectionIndex = (currentDirectionIndex + 1) % directions.length;
+        }, 2000)
+
+        updateGameScreen();
+
+        function updateGameScreen() {
+            [hero].forEach(hero => {
                 hero.updatePosition();
                 hero.render();
             })
-            foodManager.moveFoodItems();
+            foodManager.moveFoodItem();
 
-            requestAnimationFrame(updategameScreen);
+            requestAnimationFrame(updateGameScreen);
         }
-
-        setInterval(function () {
-            var newDirection = direction[currentDirectionIndex];
-            hero.move(newDirection);
-
-            currentDirectionIndex = (currentDirectionIndex + 1) % direction.length;
-        }, 2000)
     </script>
 </body>
 

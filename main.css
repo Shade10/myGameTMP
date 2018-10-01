@@ -26,7 +26,7 @@
 
   .buka-world {
     position: relative;
-    height: 600px;
+    height: 400px;
     display: flex;
     align-items: flex-end;
     background: linear-gradient(38deg, #9439d2, #30d261);
@@ -35,12 +35,12 @@
     animation: AnimationName 5s ease infinite;
   }
 
-  .foodItem {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    background: yellow;
-    border-radius: 50%;
+  .foodItem{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background: yellow;
+      border-radius: 50%;
   }
 
   @-webkit-keyframes AnimationName {
