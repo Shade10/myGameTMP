@@ -5,8 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
+    <div class="buka-world" id="app"></div>
+
     
+    <script src="Buka.js"></script>
+    <script>
+        var world = document.querySelector('#app');
+
+        var hero = new Buka(world, {
+            direction: 'NONE',
+            width: 200,
+            heigt: 200,
+            position: {
+                x: 0,
+                y: 0
+            }
+        })
+
+        var direction =['RIGHT', 'NONE', 'DOWN', 'LEFT', 'UP'];
+        var currentDirectionIndex = 0;
+
+        updategameScreen();
+        
+        function updategameScreen(){
+            [hero].map(hero => {
+                hero.updatePosition();
+                hero.render();
+            })
+
+            requestAnimationFrame(updategameScreen);
+        }
+
+        setInterval(function(){
+            var newDirection = direction[currentDirectionIndex];
+            hero.move(newDirection);
+
+            currentDirectionIndex = (currentDirectionIndex + 1) % direction.length;
+        }, 2000)
+    </script>
 </body>
 </html>

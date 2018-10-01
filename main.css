@@ -1,0 +1,12 @@
+.hero{
+    height: 200;
+    width: 100;
+    background: purple;
+    transition: height 2s, width 2s;
+}
+
+.buka-world{
+    height: 600px;
+    display: flex;
+    align-items: flex-end;
+}
